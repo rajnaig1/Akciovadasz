@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+    standalone-chrome:
+        network_mode: host
+        image: selenium/standalone-chrome
+        shm_size: 2gb

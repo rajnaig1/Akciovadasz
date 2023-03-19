@@ -1,0 +1,9 @@
+Helper \Helper\DatabaseIntegration was created in /home/rajnaig/IECFullstack/htdocs/Mestermunka/Git/laravel_mongoCRUD/tests/_support/Helper/DatabaseIntegration.php
+Actor - was created in /home/rajnaig/IECFullstack/htdocs/Mestermunka/Git/laravel_mongoCRUD/tests/_support/-.php
+Suite config DatabaseIntegration.suite.yml was created.
+ 
+Next steps:
+1. Edit DatabaseIntegration.suite.yml to enable modules for this suite
+2. Create first test with generate:cest testName ( or test|cept) command
+3. Run tests of this suite with codecept run DatabaseIntegration command
+Suite DatabaseIntegration generated

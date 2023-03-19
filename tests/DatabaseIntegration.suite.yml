@@ -1,0 +1,17 @@
+actor: Database_Integration_Tester
+modules:
+    enabled:
+        - \Helper\DatabaseIntegration
+        - Laravel:
+            environment_file: .env.testing
+        - MongoDb:
+           dsn: 'mongodb://localhost:27017/TestShopping'
+           user: ''
+           password: ''
+           dump_type: 'mongodump'
+           dump: 'tests/_data/dump/TestShopping/'
+           populate: true
+           cleanup: true
+           reconnect: true
+           waitlock: 0
+    step_decorators: ~  
