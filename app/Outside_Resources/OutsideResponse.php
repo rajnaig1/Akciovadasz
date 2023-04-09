@@ -16,24 +16,26 @@ class OutsideResponse
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(URLService $url,JSONParser $json, HttpConnection $http)
+    public function __construct(URLService $url, JSONParser $json, HttpConnection $http)
     {
         $this->url = $url;
-        $this->json=$json;
-        $this->http=$http;
+        $this->json = $json;
+        $this->http = $http;
     }
     public function pennyTotal()
-    {       
-        $response= $this->http->get($this->url->getPenny(1,1));
+    {
+        $response = $this->http->get($this->url->getPenny(1, 1));
         return $this->json->pennyTotal($response);
     }
-    public function pennyAllProducts($pageSize,$batchSize){
-        $response= $this->http->get($this->url->getPenny($pageSize,$batchSize));
+    public function pennyAllProducts($pageSize, $batchSize)
+    {
+        $response = $this->http->get($this->url->getPenny($pageSize, $batchSize));
         return $this->json->pennyProductParser($response);
     }
     public function tescoTotal()
-    {       
-        $response= $this->http->get($this->url->getTesco());
+    {
+        $response = $this->http->get($this->url->getTesco());
+        //$response=file_get_contents(__DIR__.'/tesco.json');
         return $this->json->tescoParser($response);
     }
 }

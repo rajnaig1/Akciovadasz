@@ -4,7 +4,7 @@
 <div class="text-center">
     <div class="btn-group" role="group" aria-label="Basic example">
         <x-modal-component class="btn-warning" buttonText="Penny manuális feltöltés" id="PennyModal" title="A penny adatbázis manuális feltöltése" body="Biztosan felül akarja írni az adatbázis?" url="/admin/pennyupload"/>
-        <x-modal-component class="btn-warning" buttonText="Tesco manuális feltöltés" id="TescoModal" title="A Tesco adatbázis manuális feltöltése" body="Biztosan felül akarja írni az adatbázis?" url="#"/>
+        <x-modal-component class="btn-warning" buttonText="Tesco manuális feltöltés" id="TescoModal" title="A Tesco adatbázis manuális feltöltése" body="Biztosan felül akarja írni az adatbázis?" url="/admin/tescoupload"/>
       </div>
       @if (null!=Session::get('status')&&(Session::get('status')->response=='Success'))
 

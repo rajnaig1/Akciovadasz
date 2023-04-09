@@ -18,4 +18,5 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::get('/pennytestresponse','App\Http\Controllers\AdminController@pennyTestResponseController');
+Route::get('/pennytestresponse', 'App\Http\Controllers\AdminController@pennyTestResponseController');
+Route::get('/tescotestresponse', 'App\Http\Controllers\AdminController@tescoTestResponseController');

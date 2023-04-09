@@ -17,7 +17,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" id="{{ $id.'DismissButton' }}" data-bs-dismiss="modal">Nem</button>
-          <a class="btn btn-success" href="{{ URL($url) }}">Igen</a>
+          <a class="btn btn-success" id="{{ $id.'AgreeButton' }}" href="{{ URL($url) }}">Igen</a>
         </div>
       </div>
     </div>

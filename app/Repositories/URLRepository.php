@@ -4,10 +4,9 @@ use App\Models\URLModel;
 class URLRepository{
     
     public function getPenny(){
-        return URLModel::Where('Shop','penny')->first();
+        return env("PENNY_URL", "somedefaultvalue");
     }
     public function getTesco(){
-        return URLModel::Where('Shop','tesco')->first();
+        return env("TESCO_URL", "somedefaultvalue");
     }
 }
-?>

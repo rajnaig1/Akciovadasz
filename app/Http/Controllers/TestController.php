@@ -32,9 +32,10 @@ class TestController extends Controller
 
     public function index()
     {
-        $repo= new Penny_General_Repository();
-        $output= $repo->createTotal(15);
-        dd($output);
+        $this->pennyService->storeTesco();
+        dd('tesco');
+        //$output= $repo->createTotal(15);
+        //dd($output);
     }
     public function uploadProducts()
     {

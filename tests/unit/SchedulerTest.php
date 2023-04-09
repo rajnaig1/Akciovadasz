@@ -35,6 +35,20 @@ class SchedulerTest extends \Tests\TestCase
 
         $this->assertTrue($event->runsInEnvironment('production'));
     }
+    public function testDownloadTescoProductIsScheduledForTuesdayMidnight()
+    {
+        $date = Carbon::today()->timezone('UTC')->startOfWeek(Carbon::TUESDAY)->setTime(0, 0);
+        $dueEvents = $this->getScheduledEventsForCommand('command:download_tescoproducts', $date);
+
+        $this->assertCount(1, $dueEvents, 'Command is not scheduled for expected time');
+
+        /**
+         * @var \Illuminate\Console\Scheduling\Event $event
+         */
+        $event = $dueEvents->first();
+
+        $this->assertTrue($event->runsInEnvironment('production'));
+    }
     private function getScheduledEventsForCommand(string $commandName, Carbon $atTime = null): Collection
     {
         # configure scheduled through Kernel

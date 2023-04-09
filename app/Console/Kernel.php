@@ -17,8 +17,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('command:download_pennyproducts')
-        ->weeklyOn(1, '0:00')
-        -> appendOutputTo (storage_path('/logs/cron.log'));
+            ->weeklyOn(1, '0:00')
+            ->appendOutputTo(storage_path('/logs/cron.log'));
+        $schedule->command('command:download_tescoproducts')
+            ->weeklyOn(2, '0:00')
+            ->appendOutputTo(storage_path('/logs/cron.log'));
     }
 
     /**
@@ -28,7 +31,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

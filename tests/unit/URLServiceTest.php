@@ -21,9 +21,7 @@ class URLServiceTest extends \Codeception\Test\Unit
         //Given
         $urlRepo = $this->make(App\Repositories\URLRepository::class, [
             'getPenny' => function () {
-                $testObject=(object)[];
-                $testObject->URL='penny%uRL%u';
-                return $testObject;
+                return 'penny%uRL%u';
             }
         ]);
         $url = new App\Services\URLService($urlRepo);
@@ -37,9 +35,7 @@ class URLServiceTest extends \Codeception\Test\Unit
         //Given
         $urlRepo = $this->make(App\Repositories\URLRepository::class, [
             'getTesco' => function () {
-                $testObject=(object)[];
-                $testObject->URL='tescoURL';
-                return $testObject;
+                return 'tescoURL';
             }
         ]);
         $url = new App\Services\URLService($urlRepo);
