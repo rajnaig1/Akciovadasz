@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Repositories\Penny_General_Repository;
 use App\Outside_Resources\OutsideResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PennyService
 {
@@ -17,7 +19,7 @@ class PennyService
     public function upsertTotalProductNumber()
     {
         $total = $this->pennyGeneral->getTotal();
-        if (isset($total[0]->_id)&&null != $total[0]->_id) {
+        if (isset($total[0]->_id) && null != $total[0]->_id) {
             return $this->pennyGeneral->updateTotal($total[0], $this->outsideResponse->pennyTotal());
         } else {
             return $this->pennyGeneral->createTotal($this->outsideResponse->pennyTotal());
@@ -75,6 +77,50 @@ class PennyService
         $remaining = $this->batchPennyProductCalls100($total);
         $remaining = $this->batchPennyProductCalls10($total, $remaining);
         $this->batchPennyProductCalls1($total, $remaining);
+    }
+    public function getAllStoredPennyProducts($paginator, $orderBy, $sortDirection, $query)
+    {
+        if ($orderBy == null) {
+            $pennyProducts = $this->pennyGeneral->getAllProducts($paginator);
+            return $pennyProducts;
+        } else {
+            if ($query == '' || $query == null) {
+                $query = '%';
+            } else {
+                str_replace(' ', '%', $query);
+                $query = '%' . $query . '%';
+            }
+            $pennyProducts = $this->pennyGeneral->getAllProductsOrdered($paginator, $orderBy, $sortDirection, $query);
+            return $pennyProducts;
+        }
+    }
+    public function validateUpdatePennyProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required'],
+            'price' => ['required', 'numeric'],
+            'unitLong' => ['required'],
+            'unitPrice' => ['required', 'numeric'],
+            'unitShort' => ['required'],
+            'priceScore' => ['required', 'numeric'],
+            'volumeLabelLong' => ['required'],
+            'Category' => ['required'],
+            'validityStart' => ['required', 'date'],
+            'validityEnd' => ['required', 'date'],
+            'isPublished' => ['required', 'regex:/0|1/'],
+            'weight' => ['required', 'numeric'],
+            'productMarketing' => [],
+            'images' => []
+        ]);
+        return $validator;
+    }
+    public function updatePennyProduct($id, $validator)
+    {
+        $this->pennyGeneral->updatePennyProduct($id, $validator->validate());
+    }
+    public function deleteProduct($id)
+    {
+        $this->pennyGeneral->deletePennyProduct($id);
     }
     public function checkHealth()
     {

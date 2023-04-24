@@ -14,7 +14,7 @@
         "codeception/module-phpbrowser": "^1.0.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "jenssegers/mongodb": "3.8",
+        "jenssegers/mongodb": "3.8.5",
         "knuckleswtf/scribe": "^3.37",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",

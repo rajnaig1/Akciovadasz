@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TescoGeneral extends Migration
+class Roles extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,10 @@ class TescoGeneral extends Migration
     public function up()
     {
         //
-        Schema::create('Tesco_General', function (Blueprint $table) {
+        Schema::create('Roles', function (Blueprint $table) {
             $table->id();
-            $table->integer('count');
-            $table->integer('nextProductQuantity');
-            $table->boolean('hasNext');
-            //$table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('Role');
+            $table->foreign('product_ident_id')->references('id')->on('Roles');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class TescoGeneral extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('Tesco_General');
+        Schema::dropIfExists('Roles');
     }
 }

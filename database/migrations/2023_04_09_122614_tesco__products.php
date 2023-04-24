@@ -27,7 +27,9 @@ class TescoProducts extends Migration
             $table->string('unit');
             $table->integer('bestUnitPrice');
             $table->integer('bestPrice');
-
+            $table->double('priceScore');
+            $table->foreign('product_ident_id')->references('id')->on('Product_Ident')
+                ->onDelete('cascade');
             //$table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }

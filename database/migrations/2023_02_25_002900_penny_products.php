@@ -30,9 +30,12 @@ class PennyProducts extends Migration
             $table->string('weight');
             $table->boolen('published');
             $table->string('productMarketing');
+            $table->double('priceScore');
+            $table->foreign('product_ident_id')->references('id')->on('Product_Ident')
+                ->onDelete('cascade');
             //$table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();*/
             $table->timestamps();
-      });
+        });
     }
 
     /**

@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Repositories\URLRepository;
 use App\Repositories\Penny_General_Repository;
-
+use App\Services\Product_Ident_Service;
+use ProductIdent;
 
 class TestController extends Controller
 {
@@ -24,7 +25,7 @@ class TestController extends Controller
      * @var UserRepository
      */
 
-    public function __construct(TescoService $pennyService)
+    public function __construct(Product_Ident_Service $pennyService)
     {
         $this->pennyService = $pennyService;
     }
@@ -32,8 +33,23 @@ class TestController extends Controller
 
     public function index()
     {
-        $this->pennyService->storeTesco();
-        dd('tesco');
+
+        //dd(\date('Y-m-d'));
+        $productArray = [];
+        $products = $this->pennyService->getProducts();
+        foreach ($products as $product) {
+            array_push($productArray, $product);
+            //foreach($product->storage as $prod){
+
+
+            //}
+            /*foreach($product->Union as $prod){
+            //array_push($productArray,$prod);
+            
+            }*/
+            //array_push($productArray,$product);
+        }
+        dd($productArray);
         //$output= $repo->createTotal(15);
         //dd($output);
     }

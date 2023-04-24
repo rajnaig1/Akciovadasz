@@ -21,6 +21,8 @@ class TescoRepository
         $tescomodel->bestUnitPrice = $productObject->bestUnitPrice;
         $tescomodel->bestPrice = $productObject->bestPrice;
         $tescomodel->comment = $productObject->comment;
+        $tescomodel->product_ident_id = $productObject->product_ident_id;
+        $tescomodel->priceScore = $productObject->priceScore;
         $tescomodel->save();
     }
     public function wipeProducts()

@@ -41,7 +41,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
                 }
             ]
         );
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $exception = '';
         try {
@@ -74,7 +82,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
                 }
             ]
         );
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $exception = '';
         try {
@@ -111,7 +127,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
                 }
             ]
         );
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $exception = '';
         try {
@@ -133,8 +157,16 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $tesco = (object) array('hasNext' => 'false', 'nextProductsQty' => '0');
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         $checkIfNextProductQuantityIsFalse = TestUtilities::getMethod($tescoService, 'checkIfNextProductQuantityIsFalse');
         //When
         $output = $checkIfNextProductQuantityIsFalse->invokeArgs($tescoService, array($tesco));
@@ -153,8 +185,16 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $tesco = (object) array('hasNext' => 'false', 'nextProductsQty' => '10');
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         $checkIfNextProductQuantityIsFalse = TestUtilities::getMethod($tescoService, 'checkIfNextProductQuantityIsFalse');
         //When
         $output = $checkIfNextProductQuantityIsFalse->invokeArgs($tescoService, array($tesco));
@@ -173,9 +213,17 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $product = (object) array('name' => 'testName', 'url' => 'testUrl', 'active' => false, 'offerbegin' => 'date', 'offerend' => 'date', 'imageurl' => 'image');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $generalObjectProperties = TestUtilities::getMethod($tescoService, 'generalObjectProperties');
 
@@ -199,6 +247,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $type = 'NonExistentType';
         $templateData = (object) array('unit' => 'testUnit', 'price' => 'testPrice');
         $template = (object) array('type' => $type, 'data' => $templateData);
@@ -206,7 +263,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = 'blabla,balbla,3292 Ft/1 kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleXplusOne = TestUtilities::getMethod($tescoService, 'handleXPlusOne');
 
@@ -228,9 +284,17 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $matches = array(array('50 kg'));
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitMatcher = TestUtilities::getMethod($tescoService, 'unitMatcher');
 
@@ -239,7 +303,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $this->assertEquals('kg', $productObject->unit);
         $matches = array(array('50kg'));
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $unitMatcher = TestUtilities::getMethod($tescoService, 'unitMatcher');
 
@@ -258,9 +322,17 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $matches = array(array('50 l'));
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitMatcher = TestUtilities::getMethod($tescoService, 'unitMatcher');
 
@@ -269,7 +341,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $this->assertEquals('l', $productObject->unit);
         $matches = array(array('50l'));
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $unitMatcher = TestUtilities::getMethod($tescoService, 'unitMatcher');
 
@@ -288,9 +360,17 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $matches = array(array('50 g'));
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitMatcher = TestUtilities::getMethod($tescoService, 'unitMatcher');
 
@@ -299,7 +379,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $this->assertEquals('kg', $productObject->unit);
         $matches = array(array('50g'));
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $unitMatcher = TestUtilities::getMethod($tescoService, 'unitMatcher');
 
@@ -318,9 +398,17 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $matches = array(array('50 db'));
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitMatcher = TestUtilities::getMethod($tescoService, 'unitMatcher');
 
@@ -329,7 +417,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $this->assertEquals('db', $productObject->unit);
         $matches = array(array('50db'));
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $unitMatcher = TestUtilities::getMethod($tescoService, 'unitMatcher');
 
@@ -348,8 +436,16 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $matches = array(array('250 g'));
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitPriceGrammMatcher = TestUtilities::getMethod($tescoService, 'unitPriceGrammMatcher');
 
@@ -357,7 +453,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         //Then
         $this->assertEquals(4, $conversionFactor);
         $matches = array(array('500g'));
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $unitPriceGrammMatcher = TestUtilities::getMethod($tescoService, 'unitPriceGrammMatcher');
 
@@ -376,11 +472,19 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $clubcard = array('si-unit-price' => (object)array('val' => 500, 'list' => ''), 'price' => 50);
         $data = array('unit' => 1);
         $product = array('description' => 'blabla');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $clubCardUnitPrice = TestUtilities::getMethod($tescoService, 'clubCardUnitPrice');
 
@@ -400,11 +504,19 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $clubcard = array('si-unit-price' => (object)array('val' => '', 'list' => '5000,blablabla'), 'price' => 70);
         $data = array('unit' => 1);
         $product = array('description' => 'blabla');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $clubCardUnitPrice = TestUtilities::getMethod($tescoService, 'clubCardUnitPrice');
 
@@ -424,10 +536,18 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $product = (object)array();
         $product->description = 'blabla';
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleCheapestForFree = TestUtilities::getMethod($tescoService, 'handleCheapestForFree');
 
@@ -447,6 +567,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //$data = (array)($product->data->template->data);
         $templateData = (object) array('unit' => 'kg', 'price' => 'testPrice');
         $template = (object) array('data' => $templateData);
@@ -457,7 +586,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $clubcard = array('si-unit-price' => (object)array('val' => '', 'list' => '5000,blablabla'), 'price' => 70);
         $data = array();
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitGivenInJsonClubcard = TestUtilities::getMethod($tescoService, 'unitGivenInJsonClubcard');
 
@@ -476,6 +604,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $templateData = (object) array('unit' => 'db', 'price' => 'testPrice');
         $template = (object) array('data' => $templateData);
         $data = (object) array('template' => $template);
@@ -485,7 +622,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $clubcard = array('si-unit-price' => (object)array('val' => '', 'list' => '5000,blablabla'), 'price' => 70);
         $data = array();
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitGivenInJsonClubcard = TestUtilities::getMethod($tescoService, 'unitGivenInJsonClubcard');
 
@@ -504,6 +640,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $templateData = (object) array('unit' => 'db-tól', 'price' => 'testPrice');
         $template = (object) array('data' => $templateData);
         $data = (object) array('template' => $template);
@@ -513,7 +658,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $clubcard = array('si-unit-price' => (object)array('val' => '', 'list' => '5000,blablabla'), 'price' => 70);
         $data = array();
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitGivenInJsonClubcard = TestUtilities::getMethod($tescoService, 'unitGivenInJsonClubcard');
 
@@ -532,6 +676,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $templateData = (object) array('unit' => 'db-tól', 'price' => 'testPrice');
         $template = (object) array('data' => $templateData);
         $data = (object) array('template' => $template);
@@ -541,7 +694,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $clubcard = array('si-unit-price' => (object)array('val' => '', 'list' => '5000,blablabla'), 'price' => 70);
         $data = array('si-unit' => '1 l');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitGivenInJsonClubcard = TestUtilities::getMethod($tescoService, 'unitGivenInJsonClubcard');
 
@@ -550,7 +702,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $this->assertEquals('l', $productObject->unit);
         $data = array('si-unit' => '1l');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $unitGivenInJsonClubcard = TestUtilities::getMethod($tescoService, 'unitGivenInJsonClubcard');
 
@@ -569,6 +721,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $templateData = (object) array('unit' => 'cs', 'price' => 'testPrice');
         $template = (object) array('data' => $templateData);
         $data = (object) array('template' => $template);
@@ -578,7 +739,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $clubcard = array('si-unit-price' => (object)array('val' => '', 'list' => '5000,blablabla'), 'price' => 70);
         $data = array('si-unit' => '1 l');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitGivenInJsonClubcard = TestUtilities::getMethod($tescoService, 'unitGivenInJsonClubcard');
 
@@ -587,7 +747,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $this->assertEquals('l', $productObject->unit);
         $data = array('si-unit' => '1l');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $unitGivenInJsonClubcard = TestUtilities::getMethod($tescoService, 'unitGivenInJsonClubcard');
 
@@ -606,6 +766,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $templateData = (object) array('unit' => 'cs', 'price' => '900');
         $template = (object) array('data' => $templateData);
         $data = (object) array('template' => $template);
@@ -615,7 +784,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $clubcard = array('si-unit-price' => (object)array('val' => '', 'list' => ''), 'price' => 900);
         $data = array('si-unit' => '');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $unitGivenInJsonClubcard = TestUtilities::getMethod($tescoService, 'unitGivenInJsonClubcard');
 
@@ -635,6 +803,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '10000');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '5000');
         $templateData = (object) array('unit' => 'db', 'price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -644,7 +821,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -666,6 +842,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '10000');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '5000');
         $templateData = (object) array('si-unit' => 'kg', 'price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -675,7 +860,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -697,6 +881,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '10000');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '5000');
         $templateData = (object) array('si-unit' => '1 kg', 'price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -706,7 +899,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -728,6 +920,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '10000');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '5000');
         $templateData = (object) array('price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -736,7 +937,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -755,7 +955,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -772,7 +972,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -789,7 +989,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -809,6 +1009,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '10000');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '5000');
         $templateData = (object) array('price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -817,7 +1026,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -836,7 +1044,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -853,7 +1061,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -870,7 +1078,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -890,6 +1098,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '', 'list' => '');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '10');
         $templateData = (object) array('price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -898,7 +1115,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -917,7 +1133,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -936,7 +1152,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -955,7 +1171,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1000 g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -974,7 +1190,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -993,7 +1209,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1012,7 +1228,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1031,7 +1247,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1000g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1053,6 +1269,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '', 'list' => '');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '10');
         $templateData = (object) array('price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -1061,7 +1286,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1080,7 +1304,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1099,7 +1323,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1118,7 +1342,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1137,7 +1361,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1156,7 +1380,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1178,6 +1402,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '', 'list' => '');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '10');
         $templateData = (object) array('price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -1186,7 +1419,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = 'blabla';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1208,6 +1440,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '', 'list' => '');
         $clubcard = (object)array('si-unit-price' => $siunitprice, 'price' => '10');
         $templateData = (object) array('price' => 'testPrice', 'clubcard-price' => $clubcard);
@@ -1216,7 +1457,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1235,7 +1475,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1254,7 +1494,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1273,7 +1513,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1000 ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1292,7 +1532,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1311,7 +1551,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1330,7 +1570,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1349,7 +1589,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1000ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleBlueCard');
 
@@ -1371,6 +1611,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '10000');
         $templateData = (object) array('unit' => 'db', 'price' => '5000', "si-unit-price" => $siunitprice);
         $template = (object) array('data' => $templateData);
@@ -1378,7 +1627,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = 'blabla';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1400,6 +1648,15 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         $siunitprice = (object)array('val' => '10000');
         $templateData = (object) array('si-unit' => 'kg', 'price' => '5000', 'si-unit-price' => $siunitprice);
         $template = (object) array('data' => $templateData);
@@ -1408,7 +1665,6 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1430,6 +1686,14 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $siunitprice = (object)array('val' => '10000');
         //$clubcard=(object)array('si-unit-price'=>$siunitprice,'price'=>'5000');
         $templateData = (object) array('si-unit' => '1 kg', 'price' => '5000', 'si-unit-price' => $siunitprice);
@@ -1439,7 +1703,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1461,6 +1725,14 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $siunitprice = (object)array('val' => '10000');
         //$clubcard=(object)array('si-unit-price'=>$siunitprice,'price'=>'5000');
         $templateData = (object) array('price' => '5000', 'si-unit-price' => $siunitprice);
@@ -1469,7 +1741,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1487,7 +1759,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1503,7 +1775,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1519,7 +1791,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1539,6 +1811,14 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $siunitprice = (object)array('val' => '10000');
         $templateData = (object) array('price' => '5000', 'si-unit-price' => $siunitprice);
         $template = (object) array('data' => $templateData);
@@ -1546,7 +1826,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1564,7 +1844,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1580,7 +1860,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1596,7 +1876,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1616,6 +1896,14 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $siunitprice = (object)array('val' => '', 'list' => '');
         $templateData = (object) array('price' => '10', 'si-unit-price' => $siunitprice);
         $template = (object) array('data' => $templateData);
@@ -1623,7 +1911,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1641,7 +1929,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1659,7 +1947,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1677,7 +1965,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1000 g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1695,7 +1983,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1713,7 +2001,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1731,7 +2019,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1749,7 +2037,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1000g';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1771,6 +2059,14 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $siunitprice = (object)array('val' => '', 'list' => '');
         $templateData = (object) array('price' => '10', 'si-unit-price' => $siunitprice);
         $template = (object) array('data' => $templateData);
@@ -1778,7 +2074,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1796,7 +2092,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1814,7 +2110,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1832,7 +2128,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1850,7 +2146,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1868,7 +2164,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100db';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1890,6 +2186,14 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $siunitprice = (object)array('val' => '', 'list' => '');
         $templateData = (object) array('price' => '10', 'si-unit-price' => $siunitprice);
         $template = (object) array('data' => $templateData);
@@ -1897,7 +2201,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1 ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleBlueCard = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1915,7 +2219,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10 ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1933,7 +2237,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1952,7 +2256,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1000 ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1970,7 +2274,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -1988,7 +2292,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '10ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -2006,7 +2310,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -2024,7 +2328,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '1000ml';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -2046,6 +2350,14 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $siunitprice = (object)array('val' => '', 'list' => '');
         $templateData = (object) array('price' => '10', 'si-unit-price' => $siunitprice);
         $template = (object) array('data' => $templateData);
@@ -2053,7 +2365,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = 'blabla';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handleNormalPrice = TestUtilities::getMethod($tescoService, 'handleNormalPrice');
 
@@ -2075,6 +2387,14 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $siunitprice = (object)array('val' => '', 'list' => '');
         $templateData = (object) array('unit' => 'cs', 'price' => '900', 'si-unit-price' => '');
         $template = (object) array('data' => $templateData);
@@ -2086,7 +2406,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
 
         $data = array('si-unit' => '', 'si-unit-price' => $siunitprice, 'price' => '900', 'unit' => 'cs');
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $normalUnitPrice = TestUtilities::getMethod($tescoService, 'normalUnitPrice');
 
@@ -2105,13 +2425,21 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $templateData = (object) array('price' => '1000');
         $template = (object) array('data' => $templateData);
         $data = (object) array('template' => $template);
         $description = '100 Ft/1kg 10 Ft/1kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handlehandle2Tier = TestUtilities::getMethod($tescoService, 'handle2Tier');
 
@@ -2128,7 +2456,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 Ft/kg 10 Ft/kg';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handlehandle2Tier = TestUtilities::getMethod($tescoService, 'handle2Tier');
 
@@ -2150,13 +2478,21 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $templateData = (object) array('price' => '1000');
         $template = (object) array('data' => $templateData);
         $data = (object) array('template' => $template);
         $description = '100 Ft/1l 10 Ft/1l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handlehandle2Tier = TestUtilities::getMethod($tescoService, 'handle2Tier');
 
@@ -2173,7 +2509,7 @@ class TescoServiceTest extends \Codeception\Test\Unit
         $description = '100 Ft/l 10 Ft/l';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handlehandle2Tier = TestUtilities::getMethod($tescoService, 'handle2Tier');
 
@@ -2195,13 +2531,21 @@ class TescoServiceTest extends \Codeception\Test\Unit
             App\Repositories\TescoRepository::class,
             []
         );
+        $productIdent = $this->make(
+            App\Services\Product_Ident_Service::class,
+            [
+                'identifyProduct' => function () {
+                    return 'identified';
+                }
+            ]
+        );
         $templateData = (object) array('price' => '1000');
         $template = (object) array('data' => $templateData);
         $data = (object) array('template' => $template);
         $description = 'blabla';
         $product = (object) array('description' => $description, 'data' => $data);
         $productObject = (object)array();
-        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository);
+        $tescoService = new App\Services\TescoService($outSideResponse, $tescoRepository, $productIdent);
         //When
         $handlehandle2Tier = TestUtilities::getMethod($tescoService, 'handle2Tier');
 

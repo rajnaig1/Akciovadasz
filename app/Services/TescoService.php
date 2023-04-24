@@ -4,16 +4,19 @@ namespace App\Services;
 
 use App\Outside_Resources\OutsideResponse;
 use App\Repositories\TescoRepository;
+use App\Services\Product_Ident_Service;
 use Exception;
 
 class TescoService
 {
     protected $outsideResponse;
     protected $tescoRepository;
-    public function __construct(OutsideResponse $outsideResponse, TescoRepository $tescoRepository)
+    protected $productIdent;
+    public function __construct(OutsideResponse $outsideResponse, TescoRepository $tescoRepository, Product_Ident_Service $productIdent)
     {
         $this->outsideResponse = $outsideResponse;
         $this->tescoRepository = $tescoRepository;
+        $this->productIdent = $productIdent;
     }
     public function storeTesco()
     {
@@ -21,7 +24,6 @@ class TescoService
         $this->tescoRepository->wipeProducts();
         if (!$tesco->hasNext && $this->checkIfNextProductQuantityIsFalse($tesco)) {
             return $this->iterateProducts($tesco);
-            return 'entered';
         } else {
             throw new Exception('There are more products than queried');
         }
@@ -48,59 +50,84 @@ class TescoService
                 $productObject->template = 'x_plus_one';
                 //array_push($templateArray,$this->handleXPlusOne($product,$productObject));
                 $this->handleXPlusOne($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == 'clubcard_blue_border') {
                 $productObject->template = 'clubcard_blue_border';
                 //array_push($templateArray, $this->handleBlueCard($product, $productObject));
                 $this->handleBlueCard($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == 'cheapest_for_free') {
                 $productObject->template = 'cheapest for free';
                 //array_push($templateArray, $this->handleCheapestForFree($product, $productObject));
                 $this->handleCheapestForFree($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == 'normal_price') {
                 $productObject->template = 'normal price';
                 //array_push($templateArray, $this->handleNormalPrice($product, $productObject));
                 $this->handleNormalPrice($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == 'saving_higher_than_10') {
                 //több mit 10%-os spórolás
                 $productObject->template = 'saving higher than 10';
                 //array_push($templateArray, $this->handleSavingHigherThan10($product, $productObject));
                 $this->handleSavingHigherThan10($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == "clubcard_department_discount_with_price_blue_border") {
                 //u.a. mint a blue border, bizonyos helyeken nem elérhető
                 $productObject->template = 'clubcard_department_discount_with_price_blue_border';
                 //array_push($templateArray, $this->handleDiscountWithPriceBlueBorder($product, $productObject));
                 $this->handleSavingHigherThan10($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == "x_offer_2_tier") {
                 // ha többet veszel olcsóbb, ha kevesebbet drágább
                 $productObject->template = 'x_offer_2_tier';
                 //array_push($templateArray, $this->handle2Tier($product, $productObject));
                 $this->handle2Tier($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == "normal_price_yellow") {
                 //Nem kedvezménes
                 $productObject->template = 'normal price yellow';
                 //array_push($templateArray, $this->handleNormalPriceYellow($product, $productObject));
                 $this->handleNormalPriceYellow($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == "clubcard_tier_2_saving_lower_than_10") {
                 //ua mint a blue border
                 $productObject->template = 'clubcard_tier_2_saving_lower_than_10';
                 //array_push($templateArray, $this->handleTier2LowerThan10($product, $productObject));
                 $this->handleTier2LowerThan10($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
             } else if ($product->data->template->type == "clubcard_department_discount_promo_with_price_blue_border") {
                 //Kedvezmény minden tesco lazúrfestékre
                 $productObject->template = 'clubcard_department_discount_promo_with_price_blue_border';
                 //array_push($templateArray, $this->handleDepartmentDiscount($product, $productObject));
                 $this->handleDepartmentDiscount($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
                 $this->tescoRepository->storeProduct($productObject);
+            } else if ($product->data->template->type == 'clubcard_department_discount_without_price_blue_border') {
+                //Minden Riken nyári gumiabroncsra ÁTNÉZNI
+                $productObject->template = 'clubcard_department_discount_without_price_blue_border';
+                //array_push($templateArray, $this->handleDepartmentDiscountWithoutPriceBlueBorder($product, $productObject));
+                $this->handleDepartmentDiscount($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
+                $this->tescoRepository->storeProduct($productObject);
+            } else if ($product->data->template->type == "saving_lower_than_10") {
+                //ugyanazt adja, mint az előző
+                $productObject->template = 'saving_lower_than_10';
+                $this->handleSavingLowerThan10($product, $productObject);
+                $this->productIdent->identifyProduct($productObject);
+                $this->tescoRepository->storeProduct($productObject);
+                //array_push($templateArray, $this->handleSavingLowerThan10($product, $productObject));
             } else {
+                //dd($product->data->template->type);
                 throw new Exception('Tesco Ismeretlen termékkategória');
             }
         }
@@ -516,6 +543,16 @@ class TescoService
     private function handleDepartmentDiscount($product, $productObject)
     {
         $this->handleBlueCard($product, $productObject);
+        return $productObject;
+    }
+    private function handleDepartmentDiscountWithoutPriceBlueBorder($product, $productObject)
+    {
+        $this->handleNormalPrice($product, $productObject);
+        return $productObject;
+    }
+    private function handleSavingLowerThan10($product, $productObject)
+    {
+        $this->handleNormalPrice($product, $productObject);
         return $productObject;
     }
 }

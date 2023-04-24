@@ -31,6 +31,8 @@ class TescoRepositoryTest extends \Tests\TestCase
         $productObject->bestUnitPrice = 100;
         $productObject->bestPrice = 1000;
         $productObject->comment = 'testComment';
+        $productObject->product_ident_id = 1;
+        $productObject->priceScore = 1;
         $repo = new App\Repositories\TescoRepository();
         $repo->storeProduct($productObject);
         $output = App\Models\TescoModel::All();

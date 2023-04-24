@@ -13,6 +13,15 @@ class TescoModel extends Eloquent
     protected $collection = 'Tesco_Products';
     protected $fillable = [
         'template', 'name', 'url', 'active', 'offerBegin', 'offerEnd', 'imageURL', 'unit',
-        'bestUnitPrice', 'bestPrice', 'comment'
+        'bestUnitPrice', 'bestPrice', 'comment', 'product_ident_id', 'priceScore'
     ];
+    public function productIdent()
+    {
+        return $this->belongsTo(App\Models\ProductIdent::class);
+    }
+    public function shoppingCarts()
+    {
+
+        return $this->hasMany(ShoppingCartModel::class, "user_id");
+    }
 }
