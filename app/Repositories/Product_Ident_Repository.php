@@ -31,11 +31,6 @@ class Product_Ident_Repository
             'as' => 'tesco'
           ]
         ],
-        ['$project' =>
-        [
-          "Union" => ['$concatArrays' => ['$penny', '$tesco']]
-
-        ]]
       ]);
     }));
 
