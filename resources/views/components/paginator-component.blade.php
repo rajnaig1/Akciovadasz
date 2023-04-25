@@ -22,5 +22,12 @@
           </ul>
         </nav>
       </div>
+      <div class="d-block d-sm-none">
+        <nav aria-label="...">
+          <ul class="pagination pagination-sm">
+            {{ $slot }}
+          </ul>
+        </nav>
+      </div>
       </div>
 </div>
