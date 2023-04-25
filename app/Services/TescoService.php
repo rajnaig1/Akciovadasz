@@ -21,6 +21,7 @@ class TescoService
     public function storeTesco()
     {
         $tesco = $this->outsideResponse->tescoTotal();
+        $this->tescoRepository->wipeShoppingCarts();
         $this->tescoRepository->wipeProducts();
         if (!$tesco->hasNext && $this->checkIfNextProductQuantityIsFalse($tesco)) {
             return $this->iterateProducts($tesco);

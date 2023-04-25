@@ -6,6 +6,7 @@ use App\Models\Penny_GeneralModel;
 use App\Models\PennyProductModel;
 use App\Models\Product_IdentModel;
 use App\Services\Product_Ident_Service;
+use App\Models\ShoppingCartModel;
 
 class Penny_General_Repository
 {
@@ -80,9 +81,18 @@ class Penny_General_Repository
             ->orWhere('validityEnd', 'Like', $query)
             ->paginate($paginator);
     }
+    public function getProduct($id){
+        return PennyProductModel::where('_id','Like', $id)->get();
+    }
     public function updatePennyProduct($id, $product)
     {
         PennyProductModel::where('_id', $id)->update($product);
+    }
+    public function deleteShoppingCarts($productId){
+        ShoppingCartModel::where('product_id',$productId)->delete();
+    }
+    public function wipeShoppingCarts(){
+        ShoppingCartModel::where('shop','Penny')->delete();
     }
     public function deletePennyProduct($id)
     {

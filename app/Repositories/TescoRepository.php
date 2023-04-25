@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\TescoModel;
+use App\Models\ShoppingCartModel;
 
 class TescoRepository
 {
@@ -31,5 +32,9 @@ class TescoRepository
         foreach ($allProducts as $product) {
             $product->delete();
         }
+    }
+    public function wipeShoppingCarts()
+    {
+        ShoppingCartModel::where('shop', 'Tesco')->delete();
     }
 }

@@ -59,7 +59,7 @@ class Product_Ident_Service
         $productObject = (object)array();
         $offerBegins = $this->timeformatter($prod->offerBegin);
         $offerEnds = $this->timeformatter($prod->offerEnd);
-        if ($offerBegins <= \date('Y-m-d') && $offerEnds >= \date('Y-m-d') && $prod->active) {
+        if ($offerEnds >= \date('Y-m-d') && $prod->active) {
             $productObject->inShoppingCart = $inShoppingCart;
             $productObject->shop = 'Tesco';
             $productObject->id = $prod->_id;
@@ -82,7 +82,7 @@ class Product_Ident_Service
         $productObject = (object)array();
         $offerBegins = $this->timeformatter($prod->validityStart);
         $offerEnds = $this->timeformatter($prod->validityEnd);
-        if ($offerBegins <= \date('Y-m-d') && $offerEnds >= \date('Y-m-d') && $prod->isPublished) {
+        if ($offerEnds >= \date('Y-m-d') && $prod->isPublished) {
             $productObject->inShoppingCart = $inShoppingCart;
             $productObject->shop = 'Penny';
             $productObject->id = $prod->_id;

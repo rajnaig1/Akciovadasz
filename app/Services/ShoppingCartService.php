@@ -64,7 +64,7 @@ class ShoppingCartService
             $shoppingCartReturn = (object)array();
             if ($shoppingCart->shop == "Tesco" && $shoppingCart->product_id != null) {
                 $tescoproduct = $shoppingCart->tescoProduct;
-                if ($tescoproduct->offerBegin <= \date('Y-m-d') && $tescoproduct->offerEnd >= \date('Y-m-d')) {
+                if ($tescoproduct->offerEnd >= \date('Y-m-d')) {
                     $shoppingCartReturn->id = $shoppingCart->id;
                     $shoppingCartReturn->shop = 'Tesco';
                     $shoppingCartReturn->product_id = $shoppingCart->product_id;
@@ -79,7 +79,7 @@ class ShoppingCartService
                 }
             } else if ($shoppingCart->shop == "Penny" && $shoppingCart->product_id != null) {
                 $pennyproduct = $shoppingCart->pennyProduct;
-                if ($pennyproduct->validityStart <= \date('Y-m-d') && $pennyproduct->validityEnd >= \date('Y-m-d')) {
+                if ($pennyproduct->validityEnd >= \date('Y-m-d')) {
                     $shoppingCartReturn->id = $shoppingCart->id;
                     $shoppingCartReturn->shop = 'Penny';
                     $shoppingCartReturn->product_id = $shoppingCart->product_id;

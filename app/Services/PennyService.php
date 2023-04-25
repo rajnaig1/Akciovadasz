@@ -32,6 +32,7 @@ class PennyService
     }
     public function storeAllProducts()
     {
+        $this->pennyGeneral->wipeShoppingCarts();
         $this->pennyGeneral->wipeProducts();
         $this->batchPennyProductCalls();
         return 'done';
@@ -120,6 +121,7 @@ class PennyService
     }
     public function deleteProduct($id)
     {
+        $this->pennyGeneral->deleteShoppingCarts($id);
         $this->pennyGeneral->deletePennyProduct($id);
     }
     public function checkHealth()
