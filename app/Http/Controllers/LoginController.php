@@ -65,7 +65,7 @@ class LoginController extends Controller
     }
     public function profileModify(Request $request)
     {
-        if ($this->userService->passwordChecker($request->input('password'))) {
+        if ($this->userService->passwordChecker($request->input('old_password'))) {
             return back()->with('profileModifyFailure', 'profileModifyFailure')->withErrors('Hibás jelszó!');
         }
         $validator = $this->userService->validateProfileModify($request);

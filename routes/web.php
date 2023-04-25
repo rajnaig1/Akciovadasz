@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\ProductController@index');
+Route::get('/', [App\Http\Controllers\ProductController::class, 'index']);
 Route::get('/fetchdata', [\App\Http\Controllers\ProductController::class, 'queryProducts']);
 Route::get('/books.index', 'App\Http\Controllers\BookController@index');
 Route::get('/books.create', 'App\Http\Controllers\BookController@create');
@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         'middleware' => 'admin',
         'as' => 'admin.'
     ], function () {
-        Route::get('/', '\App\Http\Controllers\AdminController@getUploadLogs');
+        Route::get('/', [\App\Http\Controllers\AdminController::class, 'getUploadLogs']);
         Route::get('/pennyupload', '\App\Http\Controllers\AdminController@pennyManualUpdate');
         Route::get('/tescoupload', '\App\Http\Controllers\AdminController@tescoManualUpdate');
         Route::get('/getpennydatas', [App\Http\Controllers\AdminController::class, 'getPennyDatas']);

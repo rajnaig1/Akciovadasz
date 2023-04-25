@@ -35,6 +35,14 @@ class DownloadPennyProducts extends Command
 
     /**
      * Execute the console command.
+     * A Penny feltöltése adatbázisba
+     * Ha az adatbázisba írás sikeres volt azaz az uploadDatabase metódus Success-szel tér vissza,
+     * akkor a logfile-ba infoként berakja az időpontot és a success message-t
+     * 1-essel tér vissza
+     * 
+     * Ha sikertelen volt, akkor kiszedi a classt amiből a hiva jön, a sor számát, 
+     * az exception message-ét és a Stacktrace-t
+     * 0-val tér vissza
      *
      * @return int
      */
@@ -42,12 +50,12 @@ class DownloadPennyProducts extends Command
     {
         $this->info(\now());
         $this->info('Automatic');
-        if($pennyCron->uploadDataBase()=='Success'){
+        if ($pennyCron->uploadDataBase() == 'Success') {
             $this->info('Penny');
             $this->info($pennyCron->uploadDataBase());
             $this->info('End');
             return 0;
-        }else{
+        } else {
             $this->info('Penny');
             $this->info('File');
             $this->error($pennyCron->uploadDataBase()->getFile());
@@ -62,7 +70,7 @@ class DownloadPennyProducts extends Command
         }
         return 0;
     }
-    private function checkPennyCronJob(PennyCron $pennyCron){
-        
+    private function checkPennyCronJob(PennyCron $pennyCron)
+    {
     }
 }

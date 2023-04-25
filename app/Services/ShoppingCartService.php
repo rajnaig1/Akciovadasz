@@ -49,7 +49,7 @@ class ShoppingCartService
         $shoppingCart["user_id"] = Auth::user()->id;
         $this->shoppingCartRepository->addToShoppingCart($shoppingCart);
     }
-    public function addCustomShoppingCart($validator, $comment, $name)
+    public function addCustomShoppingCart($validator, $comment)
     {
         $shoppingCart = $validator->validate();
         $shoppingCart["comment"] = $comment;

@@ -27,6 +27,10 @@ class UserService
             return null;
         }
     }
+    public function createToken($user)
+    {
+        return $user->createToken('API token:')->plainTextToken;
+    }
     public function validateRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -65,6 +69,11 @@ class UserService
         } else {
             return true;
         }
+    }
+    public function logoutAPI()
+    {
+        $user = Auth::user();
+        $user->tokens()->delete();
     }
     public function profileModify(Request $request)
     {

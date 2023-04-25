@@ -26,16 +26,21 @@ class DownloadTescoProducts extends Command
      *
      * @return void
      */
-    //protected $pennyCron;
     public function __construct()
     {
-        //$this->pennyCron=$pennyCron;
         parent::__construct();
     }
 
     /**
      * Execute the console command.
-     *
+     * A Tesco feltöltése adatbázisba
+     * Ha az adatbázisba írás sikeres volt azaz az uploadDatabase metódus Success-szel tér vissza,
+     * akkor a logfile-ba infoként berakja az időpontot és a success message-t
+     * 1-essel tér vissza
+     * 
+     * Ha sikertelen volt, akkor kiszedi a classt amiből a hiva jön, a sor számát, 
+     * az exception message-ét és a Stacktrace-t
+     * 0-val tér vissza
      * @return int
      */
     public function handle(TescoCron $tescoCron)
