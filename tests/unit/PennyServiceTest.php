@@ -120,6 +120,9 @@ class PennyServiceTest extends \Codeception\Test\Unit
                     return 'database deleted';
                 }, 'storeAllProducts' => function () {
                     return 'database created';
+                },
+                'wipeShoppingCarts' => function () {
+                    return 'Shoppingcarts wiped';
                 }
             ]
         );

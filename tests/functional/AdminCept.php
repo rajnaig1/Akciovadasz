@@ -11,6 +11,12 @@ $I->expect($count != 2);
 
 $I->wantTo('See the page without logfile loaded');
 $I->amOnPage('/admin');
+$I->see('Jelentkezz be');
+$I->fillField('#emil', 'admin@admin.hu');
+$I->fillField('#jelszo', 'admin');
+$I->see('Cron Runner Logs');
+$I->click("#loginModalSuccessButton");
+$I->amOnPage('/admin');
 $I->see('Cron Runner Logs');
 $I->see('Penny Manuális Feltöltés');
 $I->see('Tesco Manuális Feltöltés');

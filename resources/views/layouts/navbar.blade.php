@@ -45,9 +45,9 @@
   </nav>
   <x-login-register-component class="nav-link-active" buttonText="Bejelentkezés" id="loginModal" title="BEJELENTKEZÉS" body="" url="/login" method="POST">
     
-    <input type="text" class="form-control" name="email" placeholder="E-Mail" required style="margin-bottom: 10px;">
+    <input type="text" class="form-control" id="emil" name="email" placeholder="E-Mail" required style="margin-bottom: 10px;">
     
-    <input type="password" class="form-control" name="password" placeholder="Jelszó" required style="margin-bottom: 10px;">
+    <input type="password" class="form-control" id="jelszo" name="password" placeholder="Jelszó" required style="margin-bottom: 10px;">
   </x-login-register-component>
   <x-login-register-component class="nav-link-active" buttonText="Regisztráció" id="registerModal" title="REGISZTRÁCIÓ" body="" url="/register" method="POST">
     

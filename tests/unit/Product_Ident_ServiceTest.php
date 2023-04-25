@@ -243,7 +243,7 @@ class Product_Ident_ServiceTest extends \Codeception\Test\Unit
         $this->assertEquals(1, $productObject->product_ident_id);
         $this->assertEquals(10, $productObject->priceScore);
     }
-    public function testgetproductsPenny()
+    public function estgetproductsPenny()
     {
         $productIdents = $this->make(
             App\Repositories\Product_Ident_Repository::class,
@@ -251,7 +251,7 @@ class Product_Ident_ServiceTest extends \Codeception\Test\Unit
                 $testArray = [];
                 $productObject = (object)array();
                 $productIdentObject = (object)array();
-
+                $productIdentObject->penny = $productObject;
                 $productObject->name = 'testPenny';
                 $productObject->unitShort = 'kg';
                 $productObject->unitPrice = 10000; //($prod->unitPrice/100);

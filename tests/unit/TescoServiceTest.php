@@ -38,6 +38,9 @@ class TescoServiceTest extends \Codeception\Test\Unit
                 },
                 'storeProducts' => function () {
                     return 'stored';
+                },
+                'wipeShoppingCarts' => function () {
+                    return 'wiped';
                 }
             ]
         );
@@ -79,6 +82,9 @@ class TescoServiceTest extends \Codeception\Test\Unit
                 },
                 'storeProducts' => function () {
                     return 'stored';
+                },
+                'wipeShoppingCarts' => function () {
+                    return 'wiped';
                 }
             ]
         );
@@ -124,6 +130,9 @@ class TescoServiceTest extends \Codeception\Test\Unit
                 },
                 'storeProducts' => function () {
                     return 'stored';
+                },
+                'wipeShoppingCarts' => function () {
+                    return 'wiped';
                 }
             ]
         );

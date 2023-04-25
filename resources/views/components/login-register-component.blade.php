@@ -24,7 +24,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" id="{{ $id.'DismissButton' }}" data-bs-dismiss="modal">Vissza</button>
-          <input class="btn btn-success" type="submit" value="{{ $buttonText }}">
+          <input class="btn btn-success" type="submit" id="{{ $id.'SuccessButton' }}" value="{{ $buttonText }}">
         </div>
       </div>
     </div>
