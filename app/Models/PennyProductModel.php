@@ -20,7 +20,6 @@ class PennyProductModel extends Eloquent
     }
     public function shoppingCarts()
     {
-
         return $this->hasMany(ShoppingCartModel::class, "user_id");
     }
 }

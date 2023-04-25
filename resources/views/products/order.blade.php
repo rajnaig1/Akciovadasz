@@ -1,4 +1,8 @@
+@if($product->inShoppingCart==true)
+<a href="{{ url('/getshoppingcart') }}"class="btn btn-primary" id="{{ $product->id.'shoppingCart' }}"style="display:visible">Bevásárlólistához</a>
+@else
 <a class="btn btn-success shoppingCart" id="{{ $product->id.'shoppingCart' }}"style="display:visible">Bevásárlókosárba</a>
+@endif
 <form action="/addtoshoppingcart" method="POST">
     @csrf
     <div class="d-grid gap-2"style="display:none">

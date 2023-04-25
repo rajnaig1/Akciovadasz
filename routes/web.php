@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\ProductController@index');
+Route::get('/fetchdata', [\App\Http\Controllers\ProductController::class, 'queryProducts']);
 Route::get('/books.index', 'App\Http\Controllers\BookController@index');
 Route::get('/books.create', 'App\Http\Controllers\BookController@create');
 Route::get('/books.show/{_id}', 'App\Http\Controllers\BookController@show');

@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\Product_Ident_Repository;
+use Illuminate\Support\Facades\Auth;
+use ShoppingCart;
 
 class Product_Ident_Service
 {
@@ -23,10 +25,28 @@ class Product_Ident_Service
         $returnArray = [];
         foreach ($products as $product) {
             foreach ($product->penny as $prod) {
-                $returnArray = $this->iteratePennyProducts($returnArray, $prod);
+                $inShoppingCart = false;
+                if (isset(Auth::user()->id)) {
+                    $userId = Auth::user()->id;
+                    $productId = $prod->_id;
+                    $shoppingCart = $this->productIdents->getshoppingCartForUser($productId, $userId);
+                    if ($shoppingCart != null && count($shoppingCart) > 0) {
+                        $inShoppingCart = true;
+                    }
+                }
+                $returnArray = $this->iteratePennyProducts($returnArray, $prod, $inShoppingCart);
             }
             foreach ($product->tesco as $prod) {
-                $returnArray = $this->iterateTescoProducts($returnArray, $prod);
+                $inShoppingCart = false;
+                if (isset(Auth::user()->id)) {
+                    $userId = Auth::user()->id;
+                    $productId = $prod->_id;
+                    $shoppingCart = $this->productIdents->getshoppingCartForUser($productId, $userId);
+                    if ($shoppingCart != null && count($shoppingCart) > 0) {
+                        $inShoppingCart = true;
+                    }
+                }
+                $returnArray = $this->iterateTescoProducts($returnArray, $prod, $inShoppingCart);
             }
         }
         \usort($returnArray, function ($a, $b) {
@@ -34,12 +54,13 @@ class Product_Ident_Service
         });
         return $returnArray;
     }
-    private function iterateTescoProducts($returnArray, $prod)
+    private function iterateTescoProducts($returnArray, $prod, $inShoppingCart)
     {
         $productObject = (object)array();
         $offerBegins = $this->timeformatter($prod->offerBegin);
         $offerEnds = $this->timeformatter($prod->offerEnd);
         if ($offerBegins <= \date('Y-m-d') && $offerEnds >= \date('Y-m-d') && $prod->active) {
+            $productObject->inShoppingCart = $inShoppingCart;
             $productObject->shop = 'Tesco';
             $productObject->id = $prod->_id;
             $productObject->name = $prod->name;
@@ -56,12 +77,13 @@ class Product_Ident_Service
         }
         return $returnArray;
     }
-    private function iteratePennyProducts($returnArray, $prod)
+    private function iteratePennyProducts($returnArray, $prod, $inShoppingCart)
     {
         $productObject = (object)array();
         $offerBegins = $this->timeformatter($prod->validityStart);
         $offerEnds = $this->timeformatter($prod->validityEnd);
         if ($offerBegins <= \date('Y-m-d') && $offerEnds >= \date('Y-m-d') && $prod->isPublished) {
+            $productObject->inShoppingCart = $inShoppingCart;
             $productObject->shop = 'Penny';
             $productObject->id = $prod->_id;
             $productObject->name = $prod->name;
@@ -113,5 +135,45 @@ class Product_Ident_Service
         } else {
             $productObject->priceScore = 1000000;
         }
+    }
+    public function getQueriedResults($query)
+    {
+        $returnArray = [];
+        if ($query == '' || $query == null) {
+            $query = '%';
+        } else {
+            str_replace(' ', '%', $query);
+            $query = '%' . $query . '%';
+        }
+        $pennyProduct = $this->productIdents->getQueriedPennyProducts($query);
+        $tescoProduct = $this->productIdents->getQueriedTescoProducts($query);
+        foreach ($pennyProduct as $prod) {
+            $inShoppingCart = false;
+            if (isset(Auth::user()->id)) {
+                $userId = Auth::user()->id;
+                $productId = $prod->_id;
+                $shoppingCart = $this->productIdents->getshoppingCartForUser($productId, $userId);
+                if ($shoppingCart != null && count($shoppingCart) > 0) {
+                    $inShoppingCart = true;
+                }
+            }
+            $returnArray = $this->iteratePennyProducts($returnArray, $prod, $inShoppingCart);
+        }
+        foreach ($tescoProduct as $prod) {
+            $inShoppingCart = false;
+            if (isset(Auth::user()->id)) {
+                $userId = Auth::user()->id;
+                $productId = $prod->_id;
+                $shoppingCart = $this->productIdents->getshoppingCartForUser($productId, $userId);
+                if ($shoppingCart != null && count($shoppingCart) > 0) {
+                    $inShoppingCart = true;
+                }
+            }
+            $returnArray = $this->iterateTescoProducts($returnArray, $prod, $inShoppingCart);
+        }
+        \usort($returnArray, function ($a, $b) {
+            return $a->priceScore <=> $b->priceScore;
+        });
+        return $returnArray;
     }
 }

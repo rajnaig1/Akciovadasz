@@ -33,6 +33,15 @@ class ProductController extends Controller
         $products = $this->paginate($products);
         return view('products.index', compact('products'));
     }
+    public function queryProducts(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = $request->get('query');
+            $products = $this->produtctIdentService->getQueriedResults($query);
+            $products = $this->paginate($products);
+            return view('products.indexcontent', compact('products'));
+        }
+    }
     public function paginate($items, $perPage = 6, $page = null, $options = [])
 
     {
