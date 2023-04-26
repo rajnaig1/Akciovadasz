@@ -1,6 +1,16 @@
 @extends('../layouts/layout')
 @section('content')
     <h1 class="text-center">Bevásárlókosár</h1>
+    @if (null != Session::get('status'))
+        <div class="alert alert-success text-center">
+            <p>Database Updated Succesfully!</p>
+        </div>
+    @elseif (null != Session::get('shoppingCartfailure'))
+        <div class="alert alert-danger">
+            <p>Hiba</p>
+            <p>{{ $errors }}</p>
+        </div>
+    @endif
     <div class="text-center">
         <button class="btn btn-success modalToggler" data-bs-toggle="modal" id="" data-bs-target="#customModal">Egyedi
             termék felvétele</button></td>
