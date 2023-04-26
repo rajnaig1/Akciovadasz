@@ -19,16 +19,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body d-flex justify-content-center align-items-center text-center"
-                        style="padding-top: 0.5rem;">
-                        @if ($product->shop == 'Tesco')
-                            <div class="tesco"></div>
-                        @else
-                            <div class="penny"></div>
-                        @endif
-                        <p class="card-text">
-                            <span>{{ mb_strtoupper($product->name) }}</span>
-                        </p>
+                    <div
+                        class="card-body text-center"style=" padding-left:0rem;padding-right: 0rem; margin-right:0rem;">
+                        <div class=" d-flex justify-content-center align-items-center text-center"
+                            style="padding-top: 0.5rem; margin-rigth:1rem;">
+                            @if ($product->shop == 'Tesco')
+                                <div class="tesco"></div>
+                            @else
+                                <div class="penny"></div>
+                            @endif
+                            <p class="card-text" style="max-width: 300px;">
+                                <span>{{ mb_strtoupper($product->name) }}</span>
+                            </p>
+                        </div>
                     </div>
                     @guest
                     @else
