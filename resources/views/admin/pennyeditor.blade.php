@@ -2,10 +2,8 @@
 @section('content')
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     @if (null != Session::get('status'))
-        )
-
-        <div class="alert alert-success">
-            <p>"Database Updated Succesfully!"</p>
+        <div class="alert alert-success text-center">
+            <p>Database Updated Succesfully!</p>
         </div>
     @elseif (null != Session::get('pennyUpdatefailure'))
         <div class="alert alert-danger">
@@ -67,10 +65,10 @@
             <input type="text" class="form-control" placeholder="Terméknév" id="modalEditName" name="name"
                 required>
             <strong>Termékár:</strong>
-            <input type="number" class="form-control" placeholder="Termékár"id="modalEditPrice" name="price"
+            <input type="number" class="form-control" placeholder="Termékár" id="modalEditPrice" name="price"
                 required>
             <strong>Egység hosszú:</strong>
-            <input type="text" class="form-control" placeholder="Egység hosszú"id="modalEditUnitLong"
+            <input type="text" class="form-control" placeholder="Egység hosszú" id="modalEditUnitLong"
                 name="unitLong" required>
             <strong>Egységár:</strong>
             <input type="number" class="form-control" placeholder="Egységár" id="modalEditUnitPrice" name="unitPrice"
@@ -79,10 +77,10 @@
             <input type="text" class="form-control" placeholder="Egység rövid" id="modalEditUnitShort"
                 name="unitShort" required>
             <strong>Saját sújtényező:</strong>
-            <input type="number" class="form-control" step="any"
-                placeholder="Saját súlytényező"id="modalEditPriceScore" name="priceScore" required>
+            <input type="number" class="form-control" step="any" placeholder="Saját súlytényező"
+                id="modalEditPriceScore" name="priceScore" required>
             <strong>Volume label:</strong>
-            <input type="text" class="form-control" placeholder="Volume Label"id="modalEditVolumeLabelLong"
+            <input type="text" class="form-control" placeholder="Volume Label" id="modalEditVolumeLabelLong"
                 name="volumeLabelLong" required>
             <strong>Kategória:</strong>
             <input type="text" class="form-control" placeholder="Kategória" id="modalEditCategory" name="Category"
@@ -97,10 +95,10 @@
             <input type="text" class="form-control" placeholder="Publikálva?" id="modalEditIsPublished"
                 name="isPublished" required>
             <strong>Súlytényező:</strong>
-            <input type="number" class="form-control" step="any" placeholder="Súlytényező"id="modalEditWeight"
+            <input type="number" class="form-control" step="any" placeholder="Súlytényező" id="modalEditWeight"
                 name="weight" required>
             <strong>ProductMarketing:</strong>
-            <input type="text" class="form-control" placeholder="ProductMarketing"id="modalEditProductMarketing"
+            <input type="text" class="form-control" placeholder="ProductMarketing" id="modalEditProductMarketing"
                 name="productMarketing">
             <strong>Kép link:</strong>
             <input type="text" class="form-control" placeholder="Kép link" id="modalEditImages" name="images">

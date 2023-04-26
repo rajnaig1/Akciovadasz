@@ -162,3 +162,27 @@
   position: sticky;
   top: 0;
 }
+.btn{
+  border-radius: 50px;
+  box-shadow: 3px 4px #c2c2c2;
+  margin:4px;
+  
+}
+.btn-success{
+  background-color:hsl(123, 65%, 49%);
+  color:rgb(202, 251, 252);
+}
+.btn-primary{
+  background-color:hsl(241, 52%, 39%);
+  color:rgb(202, 251, 252);
+}
+.btn-danger{
+  background-color:hsl(12, 88%, 52%);
+  color:rgb(202, 251, 252);
+}
+.btn-secondary{
+  color:rgb(202, 251, 252);
+}
+.card{
+  margin:20px;
+}
