@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ URL::asset('horseracher.png') }}">
 </head>
 
 <body>
-
 
     <div class="container-fluid">
         @include('../layouts/navbar')

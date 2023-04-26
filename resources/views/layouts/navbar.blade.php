@@ -1,7 +1,10 @@
 <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light text-center sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand nav-link disabled" href="#"><strong>AKCIÓVADÁSZ</strong></a>
+            <a class="navbar-brand nav-link disabled" href="#">
+                <img src="{{ URL::asset('horseracher.gif') }}" width="50px" height="50px" alt="">
+                <strong>AKCIÓVADÁSZ</strong>
+            </a>
             <button class="navbar-toggler mb-2" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
