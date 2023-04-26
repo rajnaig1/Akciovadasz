@@ -20,7 +20,17 @@ class ShoppingCart extends Migration
             $collection->double('amount');
             $collection->string('quantity');
             $collection->string('comment');
-            $collection->string('product_id')->unique();
+            $collection->string('product_id');
+            $collection->index(
+                'product_id',
+                null,
+                null,
+                [
+                    'sparse' => true,
+                    'unique' => true,
+                    'background' => true,
+                ]
+            );
             $collection->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $collection->timestamps();
         });

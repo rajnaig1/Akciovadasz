@@ -47,14 +47,14 @@ class ShoppingCartService
         $shoppingCart = $validator->validate();
         $shoppingCart["comment"] = $comment;
         $shoppingCart["user_id"] = Auth::user()->id;
-        $this->shoppingCartRepository->addToShoppingCart($shoppingCart);
+        return $this->shoppingCartRepository->addToShoppingCart($shoppingCart);
     }
     public function addCustomShoppingCart($validator, $comment)
     {
         $shoppingCart = $validator->validate();
         $shoppingCart["comment"] = $comment;
         $shoppingCart["user_id"] = Auth::user()->id;
-        $this->shoppingCartRepository->addToShoppingCart($shoppingCart);
+        return $this->shoppingCartRepository->addToShoppingCart($shoppingCart);
     }
     public function getUserShoppingCart()
     {
@@ -142,7 +142,7 @@ class ShoppingCartService
         $shoppingCart["comment"] = $comment;
         $shoppingCart["product_id"] = $productId;
         $shoppingCart["user_id"] = Auth::user()->id;
-        $this->shoppingCartRepository->updateShoppingCart($shoppingCart, $id);
+        return $this->shoppingCartRepository->updateShoppingCart($shoppingCart, $id);
     }
     public function editCustomShoppingCart($validator, $comment, $id)
     {
@@ -150,10 +150,10 @@ class ShoppingCartService
         //$shoppingCart["_id"]=$id;
         $shoppingCart["comment"] = $comment;
         $shoppingCart["user_id"] = Auth::user()->id;
-        $this->shoppingCartRepository->updateShoppingCart($shoppingCart, $id);
+        return $this->shoppingCartRepository->updateShoppingCart($shoppingCart, $id);
     }
     public function deleteShoppingCart($id)
     {
-        $this->shoppingCartRepository->deleteShoppingCart($id);
+        return $this->shoppingCartRepository->deleteShoppingCart($id);
     }
 }

@@ -47,6 +47,7 @@ class UserService
         $newUser['role_id'] = AuthHelper::USER;
         $user = User::create($newUser);
         auth()->login($user);
+        return $user;
     }
     public function validateProfileModify(Request $request)
     {
@@ -81,6 +82,7 @@ class UserService
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = $request->input('password');
-        $user->save();
+        $success = $user->save();
+        return $success;
     }
 }

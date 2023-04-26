@@ -61,8 +61,11 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-        $response = $this->userService->profileModify($request);
-        return response()->json($response);
+        $success = $this->userService->profileModify($request);
+        if (!$success) {
+            return response()->json("Database failure", 422);
+        }
+        return response()->json("Profil módosítva");
     }
     public function logout()
     {

@@ -21,7 +21,10 @@ class ShoppingCartController extends Controller
         if ($validator->fails()) {
             return back()->with('shoppingCartfailure', 'shoppingCartFailure')->withErrors($validator);
         }
-        $this->shoppingCartService->addToShoppingCart($validator, $request->input('comment'));
+        $response = $this->shoppingCartService->addToShoppingCart($validator, $request->input('comment'));
+        if ($response == null) {
+            return back()->with('shoppingCartfailure', 'shoppingCartFailure')->withErrors("Database Failure! Shoppingcart not added!");
+        }
         return redirect('/')->with('status', 'success');
     }
     public function getUserShoppingCart()
@@ -35,7 +38,10 @@ class ShoppingCartController extends Controller
         if ($validator->fails()) {
             return back()->with('shoppingCartfailure', 'shoppingCartFailure')->withErrors($validator);
         }
-        $this->shoppingCartService->editUserShoppingCart($validator, $request->input('comment'), $request->input('productId'), $request->input('id'));
+        $response = $this->shoppingCartService->editUserShoppingCart($validator, $request->input('comment'), $request->input('productId'), $request->input('id'));
+        if ($response == null || $response == 0) {
+            return back()->with('shoppingCartfailure', 'shoppingCartFailure')->withErrors("Database Failure! Shoppingcart not updated!");
+        }
         return redirect('/getshoppingcart')->with('status', 'success');
     }
     public function deleteShoppingCart($id)
@@ -49,7 +55,10 @@ class ShoppingCartController extends Controller
         if ($validator->fails()) {
             return back()->with('shoppingCartfailure', 'shoppingCartFailure')->withErrors($validator);
         }
-        $this->shoppingCartService->addCustomShoppingCart($validator, $request->input('comment'), $request->input('name'));
+        $response = $this->shoppingCartService->addCustomShoppingCart($validator, $request->input('comment'), $request->input('name'));
+        if ($response == null) {
+            return back()->with('shoppingCartfailure', 'shoppingCartFailure')->withErrors("Database Failure! Shoppingcart not added!");
+        }
         return redirect('/getshoppingcart')->with('status', 'success');
     }
     public function updateCustomShoppingCart(Request $request)
@@ -58,7 +67,10 @@ class ShoppingCartController extends Controller
         if ($validator->fails()) {
             return back()->with('shoppingCartfailure', 'shoppingCartFailure')->withErrors($validator);
         }
-        $this->shoppingCartService->editCustomShoppingCart($validator, $request->input('comment'), $request->input('id'));
+        $response = $this->shoppingCartService->editCustomShoppingCart($validator, $request->input('comment'), $request->input('id'));
+        if ($response == null || $response == 0) {
+            return back()->with('shoppingCartfailure', 'shoppingCartFailure')->withErrors("Database Failure! Shoppingcart not updated!");
+        }
         return redirect('/getshoppingcart')->with('status', 'success');
     }
 }

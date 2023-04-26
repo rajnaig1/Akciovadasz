@@ -60,7 +60,10 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return back()->with('registerFailure', 'registerFailure')->withErrors($validator);
         }
-        $this->userService->register($validator);
+        $user = $this->userService->register($validator);
+        if ($user == null) {
+            return back()->with('registerFailure', 'registerFailure')->withErrors("Database failure! You are not registered");
+        }
         return redirect('/')->with('registerSuccess', "Account successfully registered.");
     }
     public function profileModify(Request $request)
@@ -72,7 +75,10 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return back()->with('profileModifyFailure', 'profileModifyFailure')->withErrors($validator);
         }
-        $this->userService->profileModify($request);
+        $success = $this->userService->profileModify($request);
+        if (!$success) {
+            return back()->with('profileModifyFailure', 'profileModifyFailure')->withErrors("Database failure! Your profile is not modified!");
+        }
         return redirect('/profileModify')->with('profileModifySuccess', "Account successfully modified.");
     }
 }
