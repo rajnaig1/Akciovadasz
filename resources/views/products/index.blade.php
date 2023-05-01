@@ -14,10 +14,14 @@
                 })
             };
             $(document).on('keyup', '#searchField', function() {
-                console.log('bejut');
-                var query = $('#searchField').val();
-                var page = $('#hidden_page').val();
-                fetch_data(page, query);
+                let keyupTimer;
+                clearTimeout(keyupTimer);
+                keyupTimer = setTimeout(function() {
+                    var query = $('#searchField').val();
+                    var page = $('#hidden_page').val();
+                    fetch_data(page, query);
+                }, 800);
+
             });
             $(document).on('click', '.pagination a', function(event) {
                 event.preventDefault();

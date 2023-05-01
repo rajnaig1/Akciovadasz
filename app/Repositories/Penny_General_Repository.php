@@ -46,8 +46,12 @@ class Penny_General_Repository
             $productmodel->unitShort = $product->price->baseUnitShort;
             $productmodel->unitPrice = $product->price->regular->perStandardizedQuantity;
             $productmodel->price = $product->price->regular->value;
-            $productmodel->validityStart = $product->price->validityStart;
-            $productmodel->validityEnd = $product->price->validityEnd;
+            if (isset($product->price->validityStart)) {
+                $productmodel->validityStart = $product->price->validityStart;
+            }
+            if (isset($product->price->validityEnd)) {
+                $productmodel->validityEnd = $product->price->validityEnd;
+            }
             $productmodel->isPublished = $product->isPublished;
             $productmodel->volumeLabelLong = $product->volumeLabelLong;
             $productmodel->weight = $product->weight;
@@ -81,18 +85,21 @@ class Penny_General_Repository
             ->orWhere('validityEnd', 'Like', $query)
             ->paginate($paginator);
     }
-    public function getProduct($id){
-        return PennyProductModel::where('_id','Like', $id)->get();
+    public function getProduct($id)
+    {
+        return PennyProductModel::where('_id', 'Like', $id)->get();
     }
     public function updatePennyProduct($id, $product)
     {
         PennyProductModel::where('_id', $id)->update($product);
     }
-    public function deleteShoppingCarts($productId){
-        ShoppingCartModel::where('product_id',$productId)->delete();
+    public function deleteShoppingCarts($productId)
+    {
+        ShoppingCartModel::where('product_id', $productId)->delete();
     }
-    public function wipeShoppingCarts(){
-        ShoppingCartModel::where('shop','Penny')->delete();
+    public function wipeShoppingCarts()
+    {
+        ShoppingCartModel::where('shop', 'Penny')->delete();
     }
     public function deletePennyProduct($id)
     {

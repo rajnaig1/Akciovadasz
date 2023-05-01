@@ -124,11 +124,16 @@
                 })
             }
             $(document).on('keyup', '#searchField', function() {
-                var query = $('#searchField').val();
-                var column_name = $('#hidden_column_name').val();
-                var sort_type = $('#hidden_sort_type').val();
-                var page = $('#hidden_page').val();
-                fetch_data(page, sort_type, column_name, query);
+                let keyupTimer;
+                clearTimeout(keyupTimer);
+                keyupTimer = setTimeout(function() {
+                    var query = $('#searchField').val();
+                    var column_name = $('#hidden_column_name').val();
+                    var sort_type = $('#hidden_sort_type').val();
+                    var page = $('#hidden_page').val();
+                    fetch_data(page, sort_type, column_name, query);
+                }, 800);
+
             })
             $(document).on('click', '.sorting', function() {
                 var column_name = $(this).data('column_name');

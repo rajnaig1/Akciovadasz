@@ -80,9 +80,10 @@ class Product_Ident_Service
     private function iteratePennyProducts($returnArray, $prod, $inShoppingCart)
     {
         $productObject = (object)array();
-        $offerBegins = $this->timeformatter($prod->validityStart);
-        $offerEnds = $this->timeformatter($prod->validityEnd);
-        if ($offerEnds >= \date('Y-m-d') && $prod->isPublished) {
+        if (isset($prod->validityEnd)) {
+            $offerEnds = $this->timeformatter($prod->validityEnd);
+        }
+        if (isset($prod->validityEnd) && $offerEnds >= \date('Y-m-d') && $prod->isPublished) {
             $productObject->inShoppingCart = $inShoppingCart;
             $productObject->shop = 'Penny';
             $productObject->id = $prod->_id;
@@ -90,7 +91,11 @@ class Product_Ident_Service
             $productObject->unit = $prod->unitShort;
             $productObject->unitPrice = ($prod->unitPrice / 100);
             $productObject->price = ($prod->price / 100);
-            $productObject->offerBegins = $prod->validityStart;
+            if (isset($prod->validityStart)) {
+                $productObject->offerBegins = $prod->validityStart;
+            } else {
+                $productObject->offerBegins = "Nincs megadva";
+            }
             $productObject->offerEnds = $prod->validityEnd;
             $productObject->comment = '';
             $productObject->priceScore = $prod->priceScore;
