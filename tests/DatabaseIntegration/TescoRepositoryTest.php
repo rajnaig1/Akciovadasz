@@ -34,6 +34,7 @@ class TescoRepositoryTest extends \Tests\TestCase
         $productObject->product_ident_id = 1;
         $productObject->priceScore = 1;
         $repo = new App\Repositories\TescoRepository();
+        $repo->wipeProducts();
         $repo->storeProduct($productObject);
         $output = App\Models\TescoModel::All();
         $this->assertEquals(1, count($output));

@@ -27,7 +27,7 @@ class PennyGeneralRepositoryTest extends \Tests\TestCase
         $repo = new App\Repositories\Penny_General_Repository($productIdent);
         $output = $repo->getTotal();
         $this->assertEquals(1, count($output));
-        $this->assertEquals(543, $output[0]->Total);
+        $this->assertEquals(734, $output[0]->Total);
     }
     public function testUpdateTotal()
     {

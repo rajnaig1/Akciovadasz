@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"Shopping.Penny_Products"}],"uuid":"4ae2efb4f57d4a9c9fe07c041623c07b"}
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"313cc6a720914872b8158765994abd8e","collectionName":"Penny_Products","type":"collection"}

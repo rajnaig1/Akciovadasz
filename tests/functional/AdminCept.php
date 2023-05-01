@@ -14,6 +14,7 @@ $I->amOnPage('/admin');
 $I->see('Jelentkezz be');
 $I->fillField('#emil', 'admin@admin.hu');
 $I->fillField('#jelszo', 'admin');
+$I->click("#loginModalSuccessButton");
 $I->see('Cron Runner Logs');
 $I->click("#loginModalSuccessButton");
 $I->amOnPage('/admin');
